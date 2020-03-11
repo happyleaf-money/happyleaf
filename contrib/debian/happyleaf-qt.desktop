@@ -1,0 +1,12 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=HLF
+Comment=HLF P2P Cryptocurrency
+Comment[fr]=HLF, monnaie virtuelle cryptographique pair à pair
+Comment[tr]=HLF, eşten eşe kriptografik sanal para birimi
+Exec=happyleaf-qt %u
+Terminal=false
+Type=Application
+Icon=happyleaf128
+MimeType=x-scheme-handler/happyleaf;
+Categories=Office;Finance;

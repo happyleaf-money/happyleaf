@@ -1,0 +1,81 @@
+policy_module(happyleaf, 1.100.1)
+
+########################################
+#
+# Declarations
+#
+
+type happyleaf_t;
+type happyleaf_exec_t;
+init_daemon_domain(happyleaf_t, happyleaf_exec_t)
+
+permissive happyleaf_t;
+
+type happyleaf_initrc_exec_t;
+init_script_file(happyleaf_initrc_exec_t)
+
+type happyleaf_conf_t;
+files_type(happyleaf_conf_t)
+
+type happyleaf_var_lib_t;
+files_type(happyleaf_var_lib_t)
+
+type happyleaf_var_run_t;
+files_type(happyleaf_var_run_t)
+
+type happyleaf_port_t;
+corenet_port(happyleaf_port_t)
+
+########################################
+#
+# happyleaf local policy
+#
+allow happyleaf_t self:process { fork };
+
+allow happyleaf_t self:fifo_file rw_fifo_file_perms;
+allow happyleaf_t self:unix_stream_socket create_stream_socket_perms;
+
+manage_dirs_pattern(happyleaf_t, happyleaf_conf_t, happyleaf_conf_t)
+manage_files_pattern(happyleaf_t, happyleaf_conf_t, happyleaf_conf_t)
+
+manage_dirs_pattern(happyleaf_t, happyleaf_var_lib_t, happyleaf_var_lib_t)
+manage_files_pattern(happyleaf_t, happyleaf_var_lib_t, happyleaf_var_lib_t)
+files_var_lib_filetrans(happyleaf_t, happyleaf_var_lib_t, { dir file })
+
+manage_dirs_pattern(happyleaf_t, happyleaf_var_run_t, happyleaf_var_run_t)
+manage_files_pattern(happyleaf_t, happyleaf_var_run_t, happyleaf_var_run_t)
+
+sysnet_dns_name_resolve(happyleaf_t)
+corenet_all_recvfrom_unlabeled(happyleaf_t)
+
+allow happyleaf_t self:tcp_socket create_stream_socket_perms;
+corenet_tcp_sendrecv_generic_if(happyleaf_t)
+corenet_tcp_sendrecv_generic_node(happyleaf_t)
+corenet_tcp_sendrecv_all_ports(happyleaf_t)
+corenet_tcp_bind_generic_node(happyleaf_t)
+
+gen_require(`
+    type happyleaf_port_t;
+')
+allow happyleaf_t happyleaf_port_t:tcp_socket name_bind;
+
+gen_require(`
+    type happyleaf_port_t;
+')
+allow happyleaf_t happyleaf_port_t:tcp_socket name_connect;
+
+domain_use_interactive_fds(happyleaf_t)
+
+files_read_etc_files(happyleaf_t)
+
+miscfiles_read_localization(happyleaf_t)
+
+sysnet_dns_name_resolve(happyleaf_t)
+
+allow happyleaf_t happyleaf_exec_t:file execute_no_trans;
+allow happyleaf_t self:process setsched;
+corecmd_exec_ls(happyleaf_t)
+corenet_tcp_connect_http_port(happyleaf_t)
+dev_read_urand(happyleaf_t)
+fs_getattr_xattr_fs(happyleaf_t)
+kernel_read_system_state(happyleaf_t)

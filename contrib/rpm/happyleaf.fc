@@ -1,0 +1,8 @@
+/usr/bin/happyleaf-cli		--	gen_context(system_u:object_r:happyleaf_exec_t,s0)
+/usr/sbin/happyleafd		--	gen_context(system_u:object_r:happyleaf_exec_t,s0)
+/usr/lib(64)?/happyleaf/happyleafd		--	gen_context(system_u:object_r:happyleaf_exec_t,s0)
+
+/etc/happyleaf(/.*)?		gen_context(system_u:object_r:happyleaf_conf_t,s0)
+/var/lib/happyleaf(/.*)?		gen_context(system_u:object_r:happyleaf_var_lib_t,s0)
+
+(/var)?/run/happyleafd(/.*)?   gen_context(system_u:object_r:happyleaf_var_run_t,s0)

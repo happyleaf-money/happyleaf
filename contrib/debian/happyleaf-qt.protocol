@@ -1,0 +1,11 @@
+[Protocol]
+exec=happyleaf-qt '%u'
+protocol=happyleaf
+input=none
+output=none
+helper=true
+listing=
+reading=false
+writing=false
+makedir=false
+deleting=false
