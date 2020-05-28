@@ -1614,7 +1614,17 @@ int64_t GetBlockValue(int nHeight)
     if (nHeight < 1){ 
         nSubsidy = 1000000 * COIN; //PREMINE 1000000	
     } else {
-        nSubsidy = 2 * COIN;
+	
+        //TOTAL 0.64
+        //POS 0.064
+        //1LVL 0.48
+        //2LVL 0.096
+	
+        if (nHeight < 46760){ 
+            nSubsidy = 2 * COIN;
+        } else {
+            nSubsidy = 0.64 * COIN;
+        }
     }
 
     // Check if we reached the coin max supply.
