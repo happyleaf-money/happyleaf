@@ -1,6 +1,4 @@
-HappyLeaf Coin 4.2.0.0
-
-More info you can reade here: https://happyleaf.money
+More info you can read here: https://happyleaf.money
 
 
 Build information (for Ubuntu 18.04):
